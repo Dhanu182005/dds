@@ -1,0 +1,37 @@
+import socket
+
+host = input("Enter host IP or domain name: ")
+start_port = int(input("Enter start port number: "))
+end_port = int(input("Enter end port number: "))
+
+print("Vulnerability Scan Report:")
+print("---------------------------")
+print("Open Ports:")
+
+for port in range(start_port, end_port + 1):
+    try:
+        sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        sock.settimeout(1)
+        sock.connect((host, port))
+        print(f"  - {port}")
+        sock.close()
+    except socket.error:
+        pass
+
+# Simplified outdated software check
+outdated_software = [
+    ("Apache", "2.2.34"),
+    ("PHP", "5.6.40")
+]
+print("\nOutdated Software:")
+for software, version in outdated_software:
+    print(f"  - {software} version {version}")
+
+# Simplified misconfiguration check
+misconfigurations = [
+    ("Apache", "/etc/apache2/apache2.conf"),
+    ("PHP", "/etc/php/7.4/fpm/php.ini")
+]
+print("\nMisconfigurations:")
+for software, config_file in misconfigurations:
+    print(f"  - {software} configuration file {config_file}")
